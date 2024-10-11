@@ -19,6 +19,8 @@ body > * {
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 1s ease;
+  opacity: 0;
 }
 .showcase__wrapper {
   width: 300px;
@@ -58,6 +60,8 @@ body > * {
   transition: all 0.3s ease;
 }
 .showcase__shelf--item {
+  transition: opacity 0.5s ease;
+  opacity: 0;
   cursor: grabbing;
   touch-action: none;
 }
@@ -69,6 +73,8 @@ body > * {
   width: 276px;
   box-sizing: border-box;
   margin: -230px 0 0 -44px;
+  transition: all 1s ease-out;
+  transform: translate(-500%, 0);
 }
 .cart__wrapper .cart__image {
   z-index: 100;

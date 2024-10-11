@@ -1,46 +1,70 @@
 window.addEventListener('DOMContentLoaded', () => {
     const products = document.querySelectorAll('.showcase__shelf--item');
-    const cart = document.querySelector('.cart__space');
-    const button = document.querySelector('button');
 
-    function buttonStatus() {
-        const productsInside = cart.childNodes;
-        if (productsInside.length >= 3) {
-            button.style.opacity = '1';
-            button.style.bottom = '20px';
-            button.style.pointerEvents = 'auto';
-        }
-    }
-
-    function getCartSpace(cart) {
-        const cartSpaceDefault = {
-            startX: 0,
-            endX: 0,
-            startY: 0,
-            endY: 0,
-        }
-        const cartParams = cart.getBoundingClientRect();
-        cartSpaceDefault.startX = cartParams.x;
-        cartSpaceDefault.endX = cartSpaceDefault.startX + cartParams.width;
-        cartSpaceDefault.startY = cartParams.y;
-        cartSpaceDefault.endY = cartSpaceDefault.startY + cartParams.height;
-        return cartSpaceDefault;
-    }
-
-    const cartSpace = getCartSpace(cart);
-
-    function inCart(event) {
-        let result = false;
-        const fitByX = event.x >= cartSpace.startX && event.x <= cartSpace.endX;
-        const fitByY = event.y >= cartSpace.startY && event.y <= cartSpace.endY;
-        if (fitByX && fitByY) {
-            result = true;
-        }
-        return result;
-    }
+    let animationCounter = 1;
 
     if (products.length) {
+        const button = document.querySelector('button');
+        // for animation
+        const container = document.querySelector('.showcase__container');
+        const cartWrapper = document.querySelector('.cart__wrapper');
+
+        function buttonStatus() {
+            const productsInside = cart.childNodes;
+            if (productsInside.length >= 3) {
+                button.style.opacity = '1';
+                button.style.bottom = '20px';
+                button.style.pointerEvents = 'auto';
+            }
+        }
+
+        cartWrapper.style.transform = 'translateX(0%)';
+
+        let cart, cartSpace;
+
+        function getCartSpace(cart) {
+            const cartSpaceDefault = {
+                startX: 0,
+                endX: 0,
+                startY: 0,
+                endY: 0,
+            }
+            const cartParams = cart.getBoundingClientRect();
+            cartSpaceDefault.startX = cartParams.x;
+            cartSpaceDefault.endX = cartSpaceDefault.startX + cartParams.width;
+            cartSpaceDefault.startY = cartParams.y;
+            cartSpaceDefault.endY = cartSpaceDefault.startY + cartParams.height;
+            return cartSpaceDefault;
+        }
+
+        function inCart(event) {
+            let result = false;
+            const fitByX = event.x >= cartSpace.startX && event.x <= cartSpace.endX;
+            const fitByY = event.y >= cartSpace.startY && event.y <= cartSpace.endY;
+            if (fitByX && fitByY) {
+                result = true;
+            }
+            return result;
+        }
+
+        setTimeout(() => {
+            cart = document.querySelector('.cart__space');
+            cartSpace = getCartSpace(cart);
+        }, 1500);
+
+        container.style.opacity = '1';
+
         products.forEach(product => {
+
+            // animation
+            setTimeout(() => {
+                product.style.opacity = '1';
+            }, 100 * animationCounter);
+
+            animationCounter++;
+
+
+
             product.ondragstart = () => {
                 return false
             };
