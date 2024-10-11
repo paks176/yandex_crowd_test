@@ -1,6 +1,16 @@
 window.addEventListener('DOMContentLoaded', () => {
     const products = document.querySelectorAll('.showcase__shelf--item');
     const cart = document.querySelector('.cart__space');
+    const button = document.querySelector('button');
+
+    function buttonStatus() {
+        const productsInside = cart.childNodes;
+        if (productsInside.length >= 3) {
+            button.style.opacity = '1';
+            button.style.bottom = '20px';
+            button.style.pointerEvents = 'auto';
+        }
+    }
 
     function getCartSpace(cart) {
         const cartSpaceDefault = {
@@ -36,7 +46,6 @@ window.addEventListener('DOMContentLoaded', () => {
             };
 
             product.onmousedown = (event) => {
-                console.log(product.parentNode)
                 const defaultPosition = {
                     block: document.getElementById(product.parentNode.id),
                     x: product.getBoundingClientRect().x + 'px',
@@ -54,9 +63,13 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 let alignX = event.clientX - product.getBoundingClientRect().left;
                 let alignY = event.clientY - product.getBoundingClientRect().top;
+
+                moveTo(event.pageY, event.pageX);
+
                 document.body.appendChild(product);
                 product.style.position = 'absolute';
                 product.style.zIndex = '10';
+
 
                 document.addEventListener('mousemove', moveAction);
 
@@ -64,9 +77,13 @@ window.addEventListener('DOMContentLoaded', () => {
                 product.onmouseup = (event) => {
                     if (inCart(event)) {
                         cart.insertAdjacentElement('beforeend', product);
-                        product.style.position = 'unset';
-                        product.style.left = 'unset';
+                        // сделал расположение элементов в корзине по оси Х рандомом чтобы если продолжить складывать верстка не ломалась
+                        // для обычного расположения в ряд использовал product.style.position = 'unset';
+                        product.style.left = Math.random() * ((cart.getBoundingClientRect().width - 40) - 40) + 40 + 'px';
                         product.style.top = 'unset';
+                        product.onmousedown = '';
+                        product.style.cursor = 'default';
+                        buttonStatus();
                     } else {
                         product.style.transition = 'all 0.5s ease';
                         product.style.left = defaultPosition.x;

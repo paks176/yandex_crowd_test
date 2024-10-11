@@ -1,5 +1,13 @@
+@font-face {
+  font-family: "YSsnatchedFont";
+  font-style: normal;
+  font-weight: 100 1000;
+  font-display: swap;
+  src: url(https://yastatic.net/s3/grocery-superapp/static/fonts/ys-text-regular-4.woff2) format("woff2");
+}
 body {
   margin: 0;
+  overflow: hidden;
 }
 body > * {
   box-sizing: border-box;
@@ -15,7 +23,7 @@ body > * {
 .showcase__wrapper {
   width: 300px;
   height: 600px;
-  padding: 28px 44px;
+  padding: 28px 44px 0;
   position: relative;
   box-sizing: border-box;
 }
@@ -29,23 +37,24 @@ body > * {
   padding: 0 10px;
   display: grid;
   grid-template-rows: 1fr;
-  grid-column-gap: 5px;
+  grid-column-gap: 3px;
 }
 .showcase__shelf#shelf_1 {
   height: 125px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 25%);
 }
 .showcase__shelf#shelf_2 {
   height: 93px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 30%);
 }
 .showcase__shelf#shelf_3 {
   height: 100px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, 25%);
 }
 .showcase__shelf--place {
   display: flex;
   align-items: flex-end;
+  transition: all 0.3s ease;
 }
 .showcase__shelf--item {
   cursor: grabbing;
@@ -76,9 +85,32 @@ body > * {
   flex-wrap: nowrap;
   padding-left: 24px;
   max-width: 180px;
+  position: relative;
 }
 .cart__space .showcase__shelf--item {
   flex-shrink: 2;
+}
+
+button {
+  font-family: "YSsnatchedFont", sans-serif;
+  cursor: pointer;
+  border: none;
+  background-color: #FCE000;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 106%;
+  letter-spacing: -0.01em;
+  text-align: center;
+  color: #21201f;
+  padding: 20px 18px;
+  position: absolute;
+  left: 70px;
+  bottom: 0;
+  z-index: 101;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.5s ease;
 }
 
 /*# sourceMappingURL=style.css.map */
