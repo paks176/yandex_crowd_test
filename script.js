@@ -97,8 +97,12 @@ window.addEventListener('DOMContentLoaded', () => {
                         setTimeout(() => {
                             product.style.position = 'unset';
                             product.style.transition = 'unset';
-                            document.body.removeChild(product);
-                            defaultPosition.block.appendChild(product);
+                            if (document.body.childElementCount > 2) {
+                                document.body.removeChild(product);
+                                if (defaultPosition.block) {
+                                    defaultPosition.block.appendChild(product);
+                                }
+                            }
                         }, 500)
                     }
                     document.removeEventListener('mousemove', moveAction);
@@ -107,7 +111,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
                 product.addEventListener('mouseup', upEvent);
                 product.addEventListener('pointerup', upEvent);
-
             }
         })
     }
