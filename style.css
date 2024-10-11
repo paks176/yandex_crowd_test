@@ -47,22 +47,38 @@ body > * {
   display: flex;
   align-items: flex-end;
 }
+.showcase__shelf--item {
+  cursor: grabbing;
+}
 
 .cart__wrapper {
-  background-image: url("assets/cart.png");
-  background-repeat: no-repeat;
-  background-size: cover;
+  position: relative;
   padding: 40px 17px 44px 44px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
   height: 230px;
   width: 276px;
   box-sizing: border-box;
+  margin: -230px 0 0 -44px;
+}
+.cart__wrapper .cart__image {
+  z-index: 100;
+  pointer-events: none;
+  position: absolute;
+  width: 276px;
+  height: 230px;
+  left: 0;
+  bottom: 0;
 }
 .cart__space {
   width: 100%;
   height: 144px;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  padding-left: 24px;
+  max-width: 180px;
+}
+.cart__space .showcase__shelf--item {
+  flex-shrink: 2;
 }
 
 /*# sourceMappingURL=style.css.map */
