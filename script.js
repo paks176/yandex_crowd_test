@@ -45,7 +45,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 return false
             };
 
-            product.onmousedown = (event) => {
+            product.addEventListener('mousedown', holdEvent);
+            product.addEventListener('pointerdown', holdEvent);
+
+
+            function holdEvent(event)  {
                 const defaultPosition = {
                     block: document.getElementById(product.parentNode.id),
                     x: product.getBoundingClientRect().x + 'px',
@@ -70,18 +74,20 @@ window.addEventListener('DOMContentLoaded', () => {
                 product.style.position = 'absolute';
                 product.style.zIndex = '10';
 
-
                 document.addEventListener('mousemove', moveAction);
+                document.addEventListener('pointermove', moveAction);
 
                 // drop
-                product.onmouseup = (event) => {
+
+                function upEvent(event) {
                     if (inCart(event)) {
                         cart.insertAdjacentElement('beforeend', product);
                         // сделал расположение элементов в корзине по оси Х рандомом чтобы если продолжить складывать верстка не ломалась
                         // для обычного расположения в ряд использовал product.style.position = 'unset';
                         product.style.left = Math.random() * ((cart.getBoundingClientRect().width - 40) - 40) + 40 + 'px';
                         product.style.top = 'unset';
-                        product.onmousedown = '';
+                        product.removeEventListener('mousedown', holdEvent);
+                        product.removeEventListener('pointerdown', holdEvent);
                         product.style.cursor = 'default';
                         buttonStatus();
                     } else {
@@ -96,7 +102,12 @@ window.addEventListener('DOMContentLoaded', () => {
                         }, 500)
                     }
                     document.removeEventListener('mousemove', moveAction);
+                    document.removeEventListener('pointermove', moveAction);
                 }
+
+                product.addEventListener('mouseup', upEvent);
+                product.addEventListener('pointerup', upEvent);
+
             }
         })
     }
