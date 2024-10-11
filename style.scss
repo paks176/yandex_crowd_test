@@ -61,6 +61,7 @@ body {
     }
     &--item {
       cursor: grabbing;
+      touch-action: none;
     }
   }
 }
@@ -117,9 +118,4 @@ button {
   opacity: 0;
   pointer-events: none;
   transition: all 0.5s ease;
-}
-
-
-@media (max-width: 576px) {
-
 }

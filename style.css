@@ -59,6 +59,7 @@ body > * {
 }
 .showcase__shelf--item {
   cursor: grabbing;
+  touch-action: none;
 }
 
 .cart__wrapper {
